@@ -2,6 +2,10 @@
 
 A Python research project that classifies U.S. data center sites by social and environmental risk, and assesses whether siting outcomes have shifted with the post-AI-expansion build-out.
 
+## Team resources
+
+- **Shared Google Drive folder:** https://drive.google.com/drive/u/2/folders/1UyQb-bjZbXkOb3IvpeAtjM8R708Km6kk — concept docs, deliverables, references, anything not appropriate for the repo.
+
 ## What this project does
 
 We construct two parallel scoring frameworks and compare them against where data centers have actually been built:

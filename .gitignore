@@ -30,6 +30,7 @@ Thumbs.db
 *.swp
 
 # Data — keep dirs but ignore contents
+data/raw/*
 data/interim/*
 data/processed/*
 !data/raw/.gitkeep

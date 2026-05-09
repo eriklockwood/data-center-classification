@@ -1,31 +1,24 @@
 # 0004 — Data storage strategy
 
-**Status:** Deferred
-**Date:** 2026-05-06
+**Status:** Accepted (supersedes earlier "Deferred" status from 2026-05-06)
+**Date:** 2026-05-08
 
 ## Context
 
-Geospatial datasets can be large. EJScreen alone ships as a multi-GB block-group file. Once we add raster sensitivity layers, the volume grows quickly. The team needs to share datasets reproducibly, but it's premature to lock in a system before we know:
+Geospatial datasets can be large. EJScreen alone ships as a multi-GB block-group file. The original scaffold deferred this decision and gitignored `data/`, with each teammate downloading from documented source URLs.
 
-- How large the data actually is in practice.
-- Whether teammates need pinned canonical snapshots, or are fine re-downloading from sources.
-- Whether we'll have access to a shared cloud bucket (S3 / GCS) for any backend.
+In practice, the team has converged on a different approach: commit raw and processed datasets directly into the repo so every teammate has identical, immediately-usable data on clone. The teammate distribution we've observed includes a range of git/Python comfort levels, and the friction of "download these N datasets to these N paths before anything works" is real. For a 7-week academic timeline, removing that friction outweighs the costs.
 
 ## Decision
 
-**Deferred.** For now: `data/` is gitignored except for `.gitkeep` markers, and `data/README.md` documents source URLs so any teammate can rebuild their local copy.
+**Commit datasets to the repo.** `data/` is no longer gitignored. Raw, interim, and processed data files are tracked alongside code. Model artifacts and notebook outputs are also tracked alongside the notebooks that produce them — see consequences for caveats.
 
-Options to revisit:
-
-- **Status quo (gitignore + README pointers).** Cheapest. Works as long as sources stay live, downloads are tractable, and we don't need byte-identical reproducibility.
-- **DVC (Data Version Control).** Versions data alongside git. Needs a remote backend (S3, GCS, Azure Blob, or DVC's own free tier). Highest reproducibility, most setup overhead.
-- **Git LFS.** Built into GitHub. Counts against repo storage quota; works for moderate-size files. Can be awkward to undo.
-- **GitHub Releases as snapshot tarballs.** Manual but durable. We could publish a "data-snapshot-vN.tar.gz" release any time we want to pin a state.
-
-Trigger to revisit: (a) a teammate hits a reproducibility need (e.g., "the OSTI atlas got updated and our results don't match anymore"); or (b) someone times themselves rebuilding from scratch and it's painful.
+The earlier alternative options (DVC, Git LFS, GitHub Releases as snapshot tarballs) are off the table for this project's lifetime.
 
 ## Consequences
 
-- Today: zero infrastructure cost, fast onboarding once data sources are documented.
-- Risk: source URLs change, teammates accidentally use slightly different download dates, or a dataset is taken down.
-- Mitigation while deferred: when a teammate downloads a dataset, note the access date in a comment in the relevant notebook or processing script, and consider taking a checksum.
+- **Onboarding is one step.** `git clone && uv sync` produces a fully reproducible environment with all data in place — no per-teammate downloads, no version drift.
+- **Repo size grows over time.** This is the main cost. With current files (~5 MB total in the merged work) we are well below GitHub's 100 MB-per-file hard limit and far below the soft repo-size warning threshold (~1 GB). If a single dataset approaches 100 MB, we revisit.
+- **Binary artifacts have known issues.** `*.pkl` files are sklearn-version-fragile and don't diff. Model artifacts will need to be regenerated when dependencies change. The team accepts this trade-off for now; if it becomes painful, switch to "regenerate from notebook" instead.
+- **License responsibility.** Including third-party datasets in our repo means the dataset's license now binds the repo. `data/README.md` should record source + license for each tracked dataset; verify each is redistributable before adding new ones.
+- **PII / sensitive content.** None of our current datasets are sensitive (all are public environmental/infrastructure data), but check before adding any new dataset.

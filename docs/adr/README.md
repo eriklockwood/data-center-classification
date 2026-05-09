@@ -26,7 +26,7 @@ Where `NNNN` is the next zero-padded number after the highest existing ADR. Edit
 | [0001](0001-python-environment.md) | Python environment manager | Accepted |
 | [0002](0002-gis-stack.md) | GIS stack | Accepted (top-level); Open (sub-decisions) |
 | [0003](0003-geographic-scope.md) | Geographic scope | Accepted |
-| [0004](0004-data-storage-strategy.md) | Data storage strategy | Deferred |
+| [0004](0004-data-storage-strategy.md) | Data storage strategy | Accepted |
 | [0005](0005-spatial-unit-of-analysis.md) | Spatial unit of analysis | Open |
 | [0006](0006-data-center-dataset.md) | Data center dataset selection | Open |
 | [0007](0007-classification-target.md) | Classification target and label strategy | Open |

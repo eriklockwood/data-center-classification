@@ -1,0 +1,57 @@
+
+MODEL PURPOSE:
+Predict presence/absence of data centers in U.S. census tracts using environmental
+and demographic features from EPA EJScreen.
+
+DATASET CHARACTERISTICS:
+• Total Census Tracts: 86,085
+• Tracts with Data Centers: 1,088 (1.27%)
+• Training/Test Split: 80/20
+• Class Imbalance: 78:1 (Negative:Positive)
+
+KEY FINDINGS:
+
+1. PREDICTIVE POWER
+   ✓ ROC-AUC: 0.72 (72% discrimination ability)
+   ✓ 3.1x better than random guessing
+   ✓ Model successfully learned patterns despite extreme imbalance
+
+2. TOP PREDICTIVE FACTORS
+   a) Underground Storage Tanks (UST) - 13.6% importance
+      → Indicates existing industrial infrastructure
+
+   b) Ozone levels - 10.7% importance
+      → Higher in industrial/urban areas with power demand
+
+   c) Pre-1960 Housing - 8.2% importance
+      → Older industrial areas with established infrastructure
+
+   d) Population >64 years - 7.4% importance
+      → Stable, established communities
+
+   e) Total Population - 7.1% importance
+      → Urban/suburban areas with workforce
+
+3. ENVIRONMENTAL JUSTICE IMPLICATIONS
+   • Data centers tend to locate in areas with:
+     - Higher pollution burdens (Ozone, PM2.5)
+     - Existing industrial infrastructure (UST, hazardous waste)
+     - Lower-income populations
+     - Older housing stock
+
+   • Model can identify communities at risk of:
+     - Future data center siting
+     - Increased environmental burden
+     - Need for proactive community engagement
+
+4. MODEL PERFORMANCE TRADE-OFFS
+   • High Recall (34%): Catches most actual data centers
+   • Low Precision (3%): Many false positives
+   • Optimal for: Screening/early warning system
+   • Not optimal for: Definitive site selection
+
+5. PRACTICAL APPLICATIONS
+   ✓ Identify high-risk census tracts for community organizing
+   ✓ Support environmental justice advocacy
+   ✓ Inform policy decisions about data center siting
+   ✓ Guide infrastructure planning

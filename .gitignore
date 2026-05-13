@@ -29,14 +29,6 @@ Thumbs.db
 .vscode/
 *.swp
 
-# Data — keep dirs but ignore contents
-data/raw/*
-data/interim/*
-data/processed/*
-!data/raw/.gitkeep
-!data/interim/.gitkeep
-!data/processed/.gitkeep
-
 # Local env files
 .env
 .env.local

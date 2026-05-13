@@ -1,6 +1,6 @@
 # Data
 
-All files in `data/raw/`, `data/interim/`, and `data/processed/` are gitignored. Each teammate downloads source data locally; the strategy for sharing canonical snapshots is deferred — see [ADR 0004](../docs/adr/0004-data-storage-strategy.md).
+Datasets are tracked directly in this repo so every teammate has identical, immediately-usable data on clone. See [ADR 0004](../docs/adr/0004-data-storage-strategy.md) for the rationale and limits (most importantly: don't add files larger than ~50 MB without discussing).
 
 ## Subdirectories
 
@@ -27,4 +27,4 @@ The "Industry feature set" sources (industrial electricity prices, tax incentive
 
 - Filenames in `interim/` and `processed/` should encode source + date: `osti-im3_2025-06-06_us-data-centers.parquet`.
 - Prefer Parquet over CSV for tabular intermediates and GeoParquet over Shapefile/GeoJSON for spatial intermediates (smaller, faster, types preserved).
-- Do not commit any file in this tree (the `.gitkeep` markers exist solely so the directory is preserved).
+- Don't add files larger than ~50 MB without discussing — GitHub warns at 50 MB and rejects pushes over 100 MB.
